@@ -6,6 +6,12 @@ terraform {
       version = "~> 2.14.0"
     }
   }
+  backend "remote" {
+    organization = "akseli"
+    workspaces {
+      name = "dns"
+    }
+  }
 }
 
 provider "cloudflare" {
