@@ -50,16 +50,16 @@ resource "cloudflare_record" "MX_nurmio_fi_a" {
   zone_id  = cloudflare_zone.nurmio_fi.id
   name     = "nurmio.fi"
   type     = "MX"
-  priority = "10"
-  value    = "mail1.shellit.org"
+  priority = 10
+  value    = "mail.protonmail.ch"
 }
 
 resource "cloudflare_record" "MX_nurmio_fi_b" {
   zone_id  = cloudflare_zone.nurmio_fi.id
   name     = "nurmio.fi"
   type     = "MX"
-  priority = "50"
-  value    = "mail2.shellit.org"
+  priority = 20
+  value    = "mailsec.protonmail.ch"
 }
 
 resource "cloudflare_record" "TXT__dmarc_nurmio_fi" {
@@ -67,7 +67,7 @@ resource "cloudflare_record" "TXT__dmarc_nurmio_fi" {
   name    = "_dmarc"
   type    = "TXT"
   proxied = false
-  value   = "v=DMARC1; p=none"
+  value   = "v=DMARC1; p=none; rua=mailto:postmaster@nurmio.fi"
 }
 
 resource "cloudflare_record" "TXT_nurmio_fi_spf" {
@@ -75,5 +75,38 @@ resource "cloudflare_record" "TXT_nurmio_fi_spf" {
   name    = "nurmio.fi"
   type    = "TXT"
   proxied = false
-  value   = "v=spf1 include:eu.mailgun.org -all"
+  value   = "v=spf1 include:_spf.protonmail.ch mx ~all"
+}
+
+resource "cloudflare_record" "CNAME_protonmail__domainkey_nurmio_fi" {
+  zone_id = cloudflare_zone.nurmio_fi.id
+  name    = "protonmail._domainkey"
+  type    = "CNAME"
+  proxied = false
+  value   = "protonmail.domainkey.ddphdyb5v7xspnneskaumdukqvk5yw2no7cfg5lppjf4ghrayqqeq.domains.proton.ch"
+}
+
+resource "cloudflare_record" "CNAME_protonmail2__domainkey_nurmio_fi" {
+  zone_id = cloudflare_zone.nurmio_fi.id
+  name    = "protonmail2._domainkey"
+  type    = "CNAME"
+  proxied = false
+  value   = "protonmail2.domainkey.ddphdyb5v7xspnneskaumdukqvk5yw2no7cfg5lppjf4ghrayqqeq.domains.proton.ch"
+}
+
+resource "cloudflare_record" "CNAME_protonmail3__domainkey_nurmio_fi" {
+  zone_id = cloudflare_zone.nurmio_fi.id
+  name    = "protonmail3._domainkey"
+  type    = "CNAME"
+  proxied = false
+  value   = "protonmail3.domainkey.ddphdyb5v7xspnneskaumdukqvk5yw2no7cfg5lppjf4ghrayqqeq.domains.proton.ch"
+}
+
+resource "cloudflare_record" "TXT_nurmio_fi_protonmail-verification" {
+  zone_id = cloudflare_zone.nurmio_fi.id
+  name    = "nurmio.fi"
+  type    = "TXT"
+  ttl     = 120
+  proxied = false
+  value   = "protonmail-verification=5df97e8b834b0361f76b5bea37c1d2c447bdfb26"
 }
