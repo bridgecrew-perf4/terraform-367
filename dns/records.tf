@@ -67,7 +67,7 @@ resource "cloudflare_record" "TXT__dmarc_nurmio_fi" {
   name    = "_dmarc"
   type    = "TXT"
   proxied = false
-  value   = "v=DMARC1; p=none; rua=mailto:postmaster@nurmio.fi"
+  value   = "v=DMARC1; p=none; rua=mailto:re+hbahwcihpuq@dmarc.postmarkapp.com"
 }
 
 resource "cloudflare_record" "TXT_nurmio_fi_spf" {
