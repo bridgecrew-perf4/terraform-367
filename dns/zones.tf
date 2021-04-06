@@ -15,6 +15,7 @@ resource "cloudflare_zone_settings_override" "akselinurmio_fi" {
       enabled            = true
       preload            = true
       include_subdomains = true
+      max_age            = 60 * 60 * 24 * 365 * 2
     }
   }
 }
@@ -36,6 +37,7 @@ resource "cloudflare_zone_settings_override" "nurmio_fi" {
       enabled            = true
       preload            = true
       include_subdomains = true
+      max_age            = 60 * 60 * 24 * 365 * 2
     }
   }
 }
