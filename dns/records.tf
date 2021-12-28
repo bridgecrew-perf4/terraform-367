@@ -14,6 +14,22 @@ resource "cloudflare_record" "CNAME_www_akselinurmio_fi" {
   value   = "akselinurmio-fi.netlify.com"
 }
 
+resource "cloudflare_record" "TXT_akselinurmio_fi_dkim" {
+  zone_id = cloudflare_zone.akselinurmio_fi.id
+  name    = "*._domainkey"
+  type    = "TXT"
+  proxied = false
+  value   = "v=DKIM1; p="
+}
+
+resource "cloudflare_record" "TXT_akselinurmio_fi_dmarc" {
+  zone_id = cloudflare_zone.akselinurmio_fi.id
+  name    = "_dmarc"
+  type    = "TXT"
+  proxied = false
+  value   = "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s"
+}
+
 resource "cloudflare_record" "TXT_akselinurmio_fi_spf" {
   zone_id = cloudflare_zone.akselinurmio_fi.id
   name    = "akselinurmio.fi"
@@ -67,7 +83,7 @@ resource "cloudflare_record" "TXT__dmarc_nurmio_fi" {
   name    = "_dmarc"
   type    = "TXT"
   proxied = false
-  value   = "v=DMARC1; p=none; rua=mailto:re+hbahwcihpuq@dmarc.postmarkapp.com"
+  value   = "v=DMARC1; p=quarantine; adkim=s; rua=mailto:re+hbahwcihpuq@dmarc.postmarkapp.com"
 }
 
 resource "cloudflare_record" "TXT_nurmio_fi_spf" {
